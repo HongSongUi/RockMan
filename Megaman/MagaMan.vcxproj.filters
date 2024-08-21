@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="TitleScene">
+      <UniqueIdentifier>{912e2299-49a0-4120-abbc-8990d227181b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageScene">
+      <UniqueIdentifier>{0b21a201-647f-4d3c-8698-cedd353754c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InGame">
+      <UniqueIdentifier>{713ea883-0e07-4bcd-96e0-ebe6e721fbf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{0e440847-8b41-4c99-afb7-6160ca0bf5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BossIntro">
+      <UniqueIdentifier>{47d75857-4f7d-4cf6-baf1-bf2209399d6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sample.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLoader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleUI.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageUI.cpp">
+      <Filter>StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelect.cpp">
+      <Filter>StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageScene.cpp">
+      <Filter>StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroBackGround.cpp">
+      <Filter>BossIntro</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIntroScene.cpp">
+      <Filter>BossIntro</Filter>
+    </ClCompile>
+    <ClCompile Include="BossImage.cpp">
+      <Filter>BossIntro</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeInOut.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameBackGround.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="CrouchState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="DashState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="WallClingState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="AirDashState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="HitState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroIdle.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroWalkState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="WinState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="BossBullet.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="InGame.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroText.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>InGame</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sample.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLoader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleUI.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageScene.h">
+      <Filter>StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelect.h">
+      <Filter>StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageUI.h">
+      <Filter>StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroBackGround.h">
+      <Filter>BossIntro</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIntroScene.h">
+      <Filter>BossIntro</Filter>
+    </ClInclude>
+    <ClInclude Include="BossImage.h">
+      <Filter>BossIntro</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOut.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameBackGround.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="CrouchState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="DashState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="WallClingState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="AirDashState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="HitState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroIdle.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroWalkState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="WinState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBullet.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="InGame.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroText.h">
+      <Filter>InGame</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
