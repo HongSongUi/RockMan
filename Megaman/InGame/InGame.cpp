@@ -5,7 +5,7 @@
 #include "Wall.h"
 #include "Camera2D.h"
 #include "Bullet.h"
-#include "FadeInOut.h"
+#include "../FadeInOut.h"
 #include "IntroText.h"
 #include "HealthBar.h"
 #include "SoundManager.h"
@@ -331,19 +331,22 @@ void InGame::CheckBossBulletCollision()
 {
 	if (Dynamo->IsShootBullet())
 	{
-		if (Collision::RectToRect(Dynamo->GetBulletRect(), Block->LeftWall))
+		Rect boss_bullet = Dynamo->GetBulletRect();
+		Rect player_rect = Character->GetObjectRect();
+		Rect boss_rect = Dynamo->GetObjectRect();
+		if (Collision::RectToRect(boss_bullet, Block->LeftWall))
 		{
 			Dynamo->SetBulletLeftHit(true);
 		}
-		else if (Collision::RectToRect(Dynamo->GetBulletRect(), Block->RightWall))
+		else if (Collision::RectToRect(boss_bullet, Block->RightWall))
 		{
 			Dynamo->SetBulletRightHit(true);
 		}
-		if (Collision::RectToRect(Dynamo->GetBulletRect(), Character->GetObjectRect()))
+		if (Collision::RectToRect(boss_bullet, player_rect))
 		{
 			Character->GetDamage(Dynamo->GetBulletDamage());
 		}
-		if (Collision::RectToRect(Dynamo->GetBulletRect(), Dynamo->GetObjectRect()))
+		if (Collision::RectToRect(boss_bullet, boss_rect))
 		{
 			Dynamo->RetrieveBullet();
 		}
@@ -352,7 +355,9 @@ void InGame::CheckBossBulletCollision()
 
 void InGame::CheckBossToPlayerCollision()
 {
-	if (Collision::RectToRect(Dynamo->GetObjectRect(), Character->GetObjectRect()))
+	Rect player_rect = Character->GetObjectRect();
+	Rect boss_rect = Dynamo->GetObjectRect();
+	if (Collision::RectToRect(boss_rect, player_rect))
 	{
 		Character->GetDamage(Dynamo->GetBossDamage());
 	}

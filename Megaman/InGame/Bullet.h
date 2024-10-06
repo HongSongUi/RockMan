@@ -44,7 +44,7 @@ public:
 	void MoveBullet();
 	void AnimationInit();
 	void Play();
-	void SetAnimaiton(std::vector<Rect>& texture);
+	void SetAnimaiton(std::vector<Rect> texture);
 	void SetType(BulletType type);
 	void SetSpawnPosition(Vector2 pos);
 	void SetInverse(bool inverse);

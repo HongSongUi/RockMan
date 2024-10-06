@@ -50,9 +50,9 @@ void WallClingState::Update()
 			Owner->SetAnimation(Owner->FindSprite(L"WallCling.txt"));
 		}
 	}
-	else if (GameInput.GetKey('X') == KEY_FREE) 
+	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
-		
+
 		if (Owner->GetIsCharge())
 		{
 			Owner->SetAnimation(Owner->FindSprite(L"ShootWallCling.txt"));

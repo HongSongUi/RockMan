@@ -3,7 +3,7 @@
 void DeathState::Enter()
 {
 	Owner->SetAnimation(Owner->FindSprite(L"HurtA.txt"));
-	
+
 }
 
 void DeathState::Update()

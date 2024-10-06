@@ -26,7 +26,7 @@ void CrouchState::Update()
 		return;
 	}
 	Owner->PlayAnimation();
-	if (GameInput.GetKey('X') == KEY_PUSH) 
+	if (GameInput.GetKey('X') == KEY_PUSH)
 	{
 		WaitTime = 0.f;
 		Owner->SetAnimation(Owner->FindSprite(L"CrouchShoot.txt"));
@@ -40,7 +40,7 @@ void CrouchState::Update()
 			Owner->SetAnimation(Owner->FindSprite(L"Crouch.txt"));
 		}
 	}
-	else if (GameInput.GetKey('X') == KEY_FREE) 
+	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
 		if (Owner->GetIsCharge())
 		{
@@ -62,11 +62,11 @@ void CrouchState::Update()
 			{
 				Owner->SetAnimation(Owner->FindSprite(L"Crouch.txt"));
 			}
-		} 
-	
+		}
+
 	}
-	
-	if (GameInput.GetKey(VK_DOWN) == KEY_FREE) 
+
+	if (GameInput.GetKey(VK_DOWN) == KEY_FREE)
 	{
 		Owner->ChangeState(new IdleState());
 		return;

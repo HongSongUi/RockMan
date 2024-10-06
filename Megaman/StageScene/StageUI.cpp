@@ -1,5 +1,5 @@
 #include "StageUI.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include <fstream>
 
 bool StageUI::Init()

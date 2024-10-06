@@ -1,9 +1,9 @@
 #include "Boss.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include "BossBullet.h"
 #include "Laser.h"
 #include "SoundManager.h"
-#include "Effect.h"
+#include "../Effect.h"
 #include <random>
 #include <fstream>
 
@@ -162,7 +162,7 @@ void Boss::PlayExplosionEffect()
 
 void Boss::EffectRender()
 {
-	if (DeathEvent == false )
+	if (DeathEvent == false)
 	{
 		return;
 	}
@@ -193,7 +193,7 @@ void Boss::StartExplosion()
 
 void Boss::UpdateExplosionFrame(Effect* explosion)
 {
-	if (explosion->CheckAnimationEnd()) 
+	if (explosion->CheckAnimationEnd())
 	{
 		ExplosionSound->PlayEffect(0.25f);
 		explosion->ResetAnimation();
@@ -257,7 +257,7 @@ void Boss::StateReady()
 
 		Inverse = !Inverse;
 	}
-	else if (RandomState == GIGA) 
+	else if (RandomState == GIGA)
 	{
 		GigaCharge->PlayEffect(0.5f);
 	}
@@ -629,7 +629,7 @@ std::vector<Rect> Boss::FindSprite(std::wstring name)
 	return std::vector<Rect>();
 }
 
-void Boss::SetSprite(std::vector<Rect>& sprite)
+void Boss::SetSprite(std::vector<Rect> sprite)
 {
 	Play = sprite;
 }
@@ -862,7 +862,9 @@ void Boss::CheckLaserCollision(Object2D* object)
 	{
 		if (LaserList[i] != nullptr)
 		{
-			if (Collision::RectToRect(LaserList[i]->GetObjectRect(), object->GetObjectRect()))
+			Rect laser_rect = LaserList[i]->GetObjectRect();
+			Rect obj_rect = object->GetObjectRect();
+			if (Collision::RectToRect(laser_rect, obj_rect))
 			{
 				object->GetDamage(LaserList[i]->GetLaserDamage());
 			}

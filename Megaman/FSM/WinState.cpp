@@ -2,7 +2,7 @@
 #include "Player.h"
 void WinState::Enter()
 {
-	Owner->SetCurrentState();
+    Owner->SetCurrentState();
 }
 
 void WinState::Update()

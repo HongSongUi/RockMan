@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "Scene.h"
+#include "../Scene.h"
 
 class GameSound;
 class StageSelect;

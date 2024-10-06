@@ -1,5 +1,5 @@
 #include "Bullet.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include <fstream>
 
 bool Bullet::Init()
@@ -124,7 +124,7 @@ void Bullet::Play()
     }
 }
 
-void Bullet::SetAnimaiton(std::vector<Rect>& texture)
+void Bullet::SetAnimaiton(std::vector<Rect> texture)
 {
     CurrentAnimation = texture;
 }

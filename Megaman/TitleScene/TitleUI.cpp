@@ -1,7 +1,7 @@
 #include "TitleUI.h"
 #include "SoundManager.h"
 #include "Input.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include <fstream>
 bool TitleUI::Init()
 {

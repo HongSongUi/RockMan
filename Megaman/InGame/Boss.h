@@ -108,7 +108,7 @@ public:
     void PlayAnimation();
     void CheckAnimationState();
     std::vector<Rect> FindSprite(std::wstring name);
-    void SetSprite(std::vector<Rect>& sprite);
+    void SetSprite(std::vector<Rect> sprite);
     void SetPlayerPos(Vector2 pos);
     void SetBossInverse();
     void SetLeftWallState(bool state);

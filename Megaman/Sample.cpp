@@ -1,6 +1,6 @@
 #include "Sample.h"
 #include "SoundManager.h"
-#include "TitleScene.h"
+#include "../TitleScene/TitleScene.h"
 #include "StageScene.h"
 #include "BossIntroScene.h"
 #include "InGame.h"

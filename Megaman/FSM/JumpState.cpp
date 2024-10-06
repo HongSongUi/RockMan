@@ -17,7 +17,7 @@ void JumpState::Enter()
 	{
 		Owner->SetPlaySound(L"ROCK_X5_00206.wav");
 	}
-	else if(Owner->GetPrevState() != AIRDASH)
+	else if (Owner->GetPrevState() != AIRDASH)
 	{
 		Owner->SetPlaySound(L"ROCK_X5_00764.wav");
 	}
@@ -66,7 +66,7 @@ void JumpState::Update()
 			return;
 		}
 	}
-	if (GameInput.GetKey('X') == KEY_PUSH) 
+	if (GameInput.GetKey('X') == KEY_PUSH)
 	{
 		WaitTime = 0.0f;
 		Owner->SetAnimation(Owner->FindSprite(L"ShootJump.txt"));
@@ -80,7 +80,7 @@ void JumpState::Update()
 			Owner->SetAnimation(Owner->FindSprite(L"Jump.txt"));
 		}
 	}
-	else if (GameInput.GetKey('X') == KEY_FREE) 
+	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
 		if (Owner->GetIsCharge())
 		{
@@ -91,12 +91,12 @@ void JumpState::Update()
 		else
 		{
 			WaitTime += gSecondPerFrame;
-			if (WaitTime > 0.75f) 
+			if (WaitTime > 0.75f)
 			{
 				Owner->SetAnimation(Owner->FindSprite(L"Jump.txt"));
 			}
 		}
-		
+
 	}
 	if (GameInput.GetKey('Z') == KEY_PUSH)
 	{

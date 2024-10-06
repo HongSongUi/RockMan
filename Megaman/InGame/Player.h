@@ -108,7 +108,7 @@ public:
 	void PlayAnimation();
 	ChargeState GetChargeState();
 	bool CheckAnimationIndex(int adjust = 0);
-	void SetAnimation(std::vector<Rect>& Animation);
+	void SetAnimation(std::vector<Rect> Animation);
 	void InitAnimation();
 	std::vector<Rect> FindSprite(std::wstring name);
 	void SetCurrentState();

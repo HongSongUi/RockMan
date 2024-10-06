@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Scene.h"
+#include "../Scene.h"
 #include "ReSUtility.h"
 
 class BossIntroScene : public Scene
@@ -18,9 +18,7 @@ class BossIntroScene : public Scene
 	bool Flash = false;
 	float CharShotTime = 2.5f;
 	bool FlashEnd = false;
-	//float ImageTimer = 1.0f;
 	float FlashTimer = 2.5f;
-	//int NextImage = 0;
 	int ImgCount = 4;
 public:
 	virtual bool Init() override;

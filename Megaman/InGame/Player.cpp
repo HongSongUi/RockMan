@@ -1,10 +1,10 @@
 #include "Player.h"
 #include "IdleState.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include "Bullet.h"
 #include "Camera2D.h"
 #include "Input.h"
-#include "Effect.h"
+#include "../Effect.h"
 #include "Boss.h"
 #include "SoundManager.h"
 #include "IntroIdle.h"
@@ -41,7 +41,7 @@ bool Player::CheckAnimationIndex(int adjust)
 	return false;
 }
 
-void Player::SetAnimation(std::vector<Rect>& Animation)
+void Player::SetAnimation(std::vector<Rect> Animation)
 {
 	CurrentAnimation = std::move(Animation);
 }
@@ -162,7 +162,8 @@ void Player::IntroFalling()
 	MoveEnd = false;
 	if (Intro == true)
 	{
-		SetAnimation(FindSprite(L"Intro.txt"));
+		std::vector<Rect> find_sprite = FindSprite(L"Intro.txt");
+		SetAnimation(find_sprite);
 	}
 	if (IsGround == false && HitGround == false) {
 		EffectSound->Play();
@@ -191,7 +192,8 @@ void Player::IntroFalling()
 				IntroFinish = false;
 			}
 			Intro = false;
-			SetAnimation(FindSprite(L"Idle.txt"));
+			std::vector<Rect> find_sprite = FindSprite(L"Intro.txt");
+			SetAnimation(find_sprite);
 		}
 	}
 }
@@ -315,10 +317,13 @@ bool Player::Render()
 void Player::SetCurrentState()
 {
 	if (CurHealth <= MaxHealth / 2.0f) {
-		SetAnimation(FindSprite(L"IdleLowHp.txt"));
+		std::vector<Rect> find_sprite = FindSprite(L"IdleLowHp.txt");
+		SetAnimation(find_sprite);
 	}
-	else {
-		SetAnimation(FindSprite(L"Idle.txt"));
+	else 
+	{
+		std::vector<Rect> find_sprite = FindSprite(L"Idle.txt");
+		SetAnimation(find_sprite);
 	}
 }
 
@@ -474,7 +479,8 @@ void Player::EffectInit()
 void Player::PlayChargeEffect()
 {
 	ChargeEffect->SetPosition(WorldPos);
-	ChargeEffect->SetSprite(ChargeEffect->FindSprite(L"Charging.txt"));
+	std::vector<Rect> find_sprite = ChargeEffect->FindSprite(L"Charging.txt");
+	ChargeEffect->SetSprite(find_sprite);
 	ChargeEffect->Frame();
 	ChargeEffect->CameraSet(CameraPosition, CameraSize);
 	if (PlayChargeSound == false)
@@ -515,11 +521,13 @@ void Player::DashEndEvent()
 
 void Player::PlayWallEffect()
 {
-	if (LeftWall) {
+	if (LeftWall) 
+	{
 		WallDustEffect->SetInverse(false);
 		WallDustEffect->SetPosition({ ObjectRect.Min.x, ObjectRect.Max.y });
 	}
-	else if (RightWall) {
+	else if (RightWall)
+	{
 		WallDustEffect->SetInverse(true);
 		WallDustEffect->SetPosition({ObjectRect.Max.x, ObjectRect.Max.y });
 	}
@@ -684,7 +692,8 @@ bool Player::CheckBulletCollision(Object2D* object)
 	for (auto iter = BulletList.begin(); iter != BulletList.end(); )
 	{
 		Bullet* bul = *iter;
-		if (Collision::RectToRect(bul->ObjectRect, object->GetObjectRect())) 
+		Rect obj_rect = object->GetObjectRect();
+		if (Collision::RectToRect(bul->ObjectRect, obj_rect))
 		{
 			SpawnBulletHitEffect(bul, object);
 			bul->Release();
@@ -710,6 +719,7 @@ void Player::SpawnBulletHitEffect(Bullet* bullet , Object2D* object)
 	}
 	BulletHitEffect->SetPosition(boss->GetWorldPosition());
 	BulletHitEffect->SetInverse(boss->GetInverse());
+	std::vector<Rect> hit_effect;
 	if (bullet->GetType() == SEC_CHARGE)
 	{
 		IsPlayBulletHitEffect = true;

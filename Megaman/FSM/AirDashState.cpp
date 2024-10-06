@@ -1,19 +1,18 @@
-#include "DashState.h"
-#include "IdleState.h"
+#include "AirDashState.h"
 #include "JumpState.h"
+#include "Player.h"
 #include "HitState.h"
 #include "WinState.h"
-#include "Player.h"
 #include "Input.h"
-void DashState::Enter()
+void AirDashState::Enter()
 {
 	Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
-	Tag = DASH;
+	Tag = AIRDASH;
 	DashTime = 0.55f;
 	Owner->SetPlaySound(L"ROCK_X5_00126.wav");
 }
 
-void DashState::Update()
+void AirDashState::Update()
 {
 	if (Owner->IsPlayerHit())
 	{
@@ -30,14 +29,15 @@ void DashState::Update()
 	}
 	Owner->PlayAnimation();
 	Owner->PlayDashEffect();
+	DashTime -= gSecondPerFrame;
 	if (!Owner->GetLeftWallState() && !Owner->GetRightWallState())
 	{
 		Owner->PlayerDash(500.f);
 	}
-	DashTime -= gSecondPerFrame;
+
 	if (DashTime < 0.f)
 	{
-		Owner->ChangeState(new IdleState);
+		Owner->ChangeState(new JumpState);
 		return;
 	}
 
@@ -51,13 +51,14 @@ void DashState::Update()
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{
 		Owner->UpdateChargingState();
-		if (Owner->GetIsCharge()) {
+		if (Owner->GetIsCharge())
+		{
 			Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
 		}
 	}
 	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
-		
+
 		if (Owner->GetIsCharge())
 		{
 			Owner->SetAnimation(Owner->FindSprite(L"ShootDash.txt"));
@@ -73,17 +74,11 @@ void DashState::Update()
 			}
 		}
 	}
-
-	if (GameInput.GetKey('C') == KEY_PUSH)
-	{
-		Owner->ChangeState(new JumpState);
-		return;
-	}
 }
 
-void DashState::Exit()
+void AirDashState::Exit()
 {
-	Owner->ResetAnimIndex();
+	Owner->SetFallingAnim();
 	Owner->DashEndEvent();
 	Owner = nullptr;
 }

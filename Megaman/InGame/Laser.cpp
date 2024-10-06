@@ -1,5 +1,5 @@
 #include "Laser.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include <fstream>
 bool Laser::Init()
 {
@@ -92,7 +92,7 @@ void Laser::Play()
     }
 }
 
-void Laser::SetSprite(std::vector<Rect>& texture)
+void Laser::SetSprite(std::vector<Rect> texture)
 {
     Animaition = texture;
 }

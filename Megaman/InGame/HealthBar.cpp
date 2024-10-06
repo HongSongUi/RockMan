@@ -1,5 +1,5 @@
 #include "HealthBar.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include <fstream>
 
 bool HealthBar::Init()

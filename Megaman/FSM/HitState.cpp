@@ -33,7 +33,6 @@ void HitState::Update()
 	HitTimer -= gSecondPerFrame;
 	if (HitTimer < 0.f)
 	{
-		//StateTag Prev = Owner->GetPrevState();
 		if (Owner->GetIsGround() == false)
 		{
 			Owner->ChangeState(new JumpState());

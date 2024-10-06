@@ -101,7 +101,7 @@ void Effect::Play()
 	SetRect(Sprite[Index]);
 }
 
-void Effect::SetSprite(std::vector<Rect>& Texture)
+void Effect::SetSprite(std::vector<Rect> Texture)
 {
 	Sprite = Texture;
 }

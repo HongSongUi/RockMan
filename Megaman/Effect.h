@@ -42,7 +42,7 @@ public:
 	std::vector<Rect> FindSprite(std::wstring name);
 	void TextInit();
 	void Play();
-	void SetSprite(std::vector<Rect>& Texture);
+	void SetSprite(std::vector<Rect> Texture);
 	void SetTexture(std::wstring TextureName, std::wstring MaskName);
 	void ResetEffect();
 	void SetInverse(bool inverse);

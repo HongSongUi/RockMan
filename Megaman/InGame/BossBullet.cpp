@@ -1,5 +1,5 @@
 #include "BossBullet.h"
-#include "TextLoader.h"
+#include "../TextLoader.h"
 #include "Boss.h"
 #include <fstream>
 bool BossBullet::Init()

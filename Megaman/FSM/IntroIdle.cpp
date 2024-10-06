@@ -12,7 +12,7 @@ void IntroIdle::Enter()
 void IntroIdle::Update()
 {
 	Owner->PlayAnimation();
-	
+
 	if (!Owner->GetIsGround() && IsGround == false)
 	{
 		if (!IsPlaySound)
@@ -29,10 +29,10 @@ void IntroIdle::Update()
 		Owner->SpawnPlayerEvent();
 		if (Owner->IsAnimationEnd())
 		{
-			
+
 			Owner->ChangeState(new IntroWalkState);
 			return;
-			
+
 		}
 	}
 }

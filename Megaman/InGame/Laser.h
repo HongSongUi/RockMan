@@ -21,7 +21,7 @@ public:
 	std::vector<Rect> FindSprite(std::wstring name);
 	void TextInit();
 	void Play();
-	void SetSprite(std::vector<Rect>& texture);
+	void SetSprite(std::vector<Rect> texture);
 	void SetPosition(Vector2 pos);
 	bool GetPlayEndState();
 	float GetLaserDamage();

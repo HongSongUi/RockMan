@@ -34,9 +34,9 @@ void IdleState::Update()
     {
         Owner->Falling();
     }
-    else 
+    else
     {
-        if (GameInput.GetKey('X') == KEY_FREE) 
+        if (GameInput.GetKey('X') == KEY_FREE)
         {
             if (Owner->GetIsCharge())
             {
@@ -49,15 +49,15 @@ void IdleState::Update()
             Owner->UpdateChargingState();
         }
 
-        if (GameInput.GetKey(VK_DOWN) == KEY_HOLD) 
+        if (GameInput.GetKey(VK_DOWN) == KEY_HOLD)
         {
             Owner->ChangeState(new CrouchState());
             return;
         }
         else if (GameInput.GetKey('C') == KEY_PUSH)
         {
-           Owner->ChangeState(new JumpState());
-           return;
+            Owner->ChangeState(new JumpState());
+            return;
         }
         else if (GameInput.GetKey(VK_LEFT) == KEY_HOLD)
         {
@@ -73,11 +73,11 @@ void IdleState::Update()
         }
         else if (GameInput.GetKey('X') == KEY_PUSH)
         {
-           Owner->ChangeState(new ShootState());
-           return;
+            Owner->ChangeState(new ShootState());
+            return;
         }
     }
- 
+
 }
 
 void IdleState::Exit()

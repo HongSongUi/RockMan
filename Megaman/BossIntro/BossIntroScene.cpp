@@ -1,7 +1,7 @@
 #include "BossIntroScene.h"
 #include "BossImage.h"
 #include "IntroBackGround.h"
-#include "FadeInOut.h"
+#include "../FadeInOut.h"
 #include "SoundManager.h"
 #include "TextureManager.h"
 bool BossIntroScene::Init()

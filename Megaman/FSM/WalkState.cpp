@@ -78,7 +78,7 @@ void WalkState::Update()
 			Owner->SetAnimation(Owner->FindSprite(L"Walk.txt"));
 		}
 	}
-	
+
 	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
 		if (Owner->GetIsCharge())
