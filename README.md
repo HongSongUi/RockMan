@@ -25,11 +25,11 @@
 ## Setting
 게임을 플레이하기 위해선 세팅이 필요합니다.
 
-1. 실행 파일의 상위 폴더에 _Animation, _lib, _shader, _sound, _Texture 폴더가 있어야 합니다 
+1. 실행 파일의 상위 폴더에 _Animation, _lib, _shader, _sound, _Texture 폴더가 있어야 합니다.
 
 <img src ="https://github.com/user-attachments/assets/0cd8db05-fb8a-433e-af5e-655bde7dd8d9">
 
-2. 실행 파일과 같은 폴더에 fmod.dll 이 있어야 합니다.
+2. 실행 파일과 같은 폴더에 fmod.dll 이 있어야 합니다. (fmod.dll 은 _lib폴더에 있습니다.)
 
 <img src ="https://github.com/user-attachments/assets/451ed600-6ba0-47be-9a40-9289b3c9b04a">
 
