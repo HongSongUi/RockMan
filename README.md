@@ -1,4 +1,4 @@
-# MegaManX5(모작)
+# RockManX5(모작)
 
 <img src ="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white"> <img src ="https://img.shields.io/badge/Direct_X-006600?style=for-the-badge&logo=directx&logoColor=black"> <img src ="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white"> <img src="https://img.shields.io/badge/fmod-000000?style=for-the-badge&logo=fmod&logoColor=white">
 
@@ -16,6 +16,17 @@
 - **다양한 공격 패턴**: 다이나모의 다양한 공격 기술을 재현하여, 원작처럼 도전적인 보스 전투를 경험할 수 있음.
 - **Sprite Animation**: 스프라이트를 활용한 부드러운 애니메이션으로 몰입감 제공.
 
+
+## Setting
+게임을 플레이하기 위해선 세팅이 필요합니다.
+
+1. 실행 파일의 상위 폴더에 _Animation, _lib, _shader, _sound, _Texture 폴더가 있어야 합니다 
+
+<img src ="https://github.com/user-attachments/assets/0cd8db05-fb8a-433e-af5e-655bde7dd8d9">
+
+2. 실행 파일과 같은 폴더에 fmod.dll 이 있어야 합니다.
+
+<img src ="https://github.com/user-attachments/assets/451ed600-6ba0-47be-9a40-9289b3c9b04a">
 
 ## How To Play
 - **이동**: 방향키 좌, 우
