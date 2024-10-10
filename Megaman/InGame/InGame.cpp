@@ -12,6 +12,7 @@
 //#include "Collision.h"
 bool InGame::Init()
 {
+	// Init InGame Data
 	PlayReadyNar = true;
 	Flash = false;
 	RedFlashRender = false;
@@ -23,7 +24,8 @@ bool InGame::Init()
 
 	BackGround->Init();
 	Block->Init();
-	PlayerCam->SetData({ Character->WorldPos.x + 250,Character->WorldPos.y - 200 }, { 800,600 });
+	PlayerCam->SetData({ Character->WorldPos.x + 250,Character->WorldPos.y - 200 }, { 800,600 }); // Set Player Camera
+	//Set BackGround Camera Data
 	BackGroundCam->SetData(PlayerCam->Position, { PlayerCam->CameraSize.x + (float)ClientRect.right ,  PlayerCam->CameraSize.y + (float)ClientRect.bottom });
 	Character->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
 	Dynamo->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
@@ -36,7 +38,6 @@ bool InGame::Init()
 
 bool InGame::Frame()
 {
-
 	if (Intro == true && Outro == false)
 	{
 		IntroFrame();
@@ -79,7 +80,7 @@ bool InGame::Release()
 
 void InGame::TextInit()
 {
-
+	// Init  Text Image (Warning , Ready , Complete, Failed)
 	ReadyText_L->SetTexture(L"../_Texture/Ready.bmp", L"../_Texture/Readymask.bmp");
 	ReadyText_L->SetRect({ 0,0,200,50 });
 	ReadyText_L->SetPosition({ -211,(float)ClientRect.bottom / 2.0f });
@@ -103,6 +104,7 @@ void InGame::TextInit()
 
 void InGame::TextRender()
 {
+	// If Text != nullptr -> Render
 	if (ReadyText_L != nullptr && ReadyText_R != nullptr)
 	{
 		ReadyText_L->MaskRender();
@@ -149,6 +151,7 @@ void InGame::TextRelease()
 
 void InGame::FadeObjectInit()
 {
+	// Init FadeIn, FadeOut Image (Warning, Explosion)
 	Red->SetTexture(L"../_Texture/FadeWarning.png");
 	White->SetTexture(L"../_Texture/GlitterEffect.png");
 }
@@ -173,6 +176,7 @@ void InGame::FadeObjectRelease()
 
 void InGame::HealthBarInit()
 {
+	//Init Health Bar UI
 	CharacterHealth->Init();
 	DynamoHealth->Init();
 
@@ -181,15 +185,17 @@ void InGame::HealthBarInit()
 
 	CharacterUI->SetRect(CharacterUI->FindSprite(L"X_Health.txt")[0]);
 	DynamoUI->SetRect(DynamoUI->FindSprite(L"BossHealth.txt")[0]);
+
 	CharacterHealth->SetRect(CharacterHealth->FindSprite(L"HealthBar.txt")[0]);
 	DynamoHealth->SetRect(DynamoHealth->FindSprite(L"HealthBar.txt")[0]);
 
-	CharacterUI->SetPosition({ 50,200 });
+	CharacterUI->SetPosition({ 50,200 });// UI Set Position
 	DynamoUI->SetPosition({ 950,200 });
 }
 
 void InGame::HealthBarFrame()
 {
+	//Update Player, Boss Health Bar
 	float CharacterScale = Character->GetHealthScale();
 	float BossScale = Dynamo->GetHealthScale();
 
@@ -198,19 +204,24 @@ void InGame::HealthBarFrame()
 	DynamoUI->ScreenToNdc();
 	DynamoUI->UpdateVertexList();
 
+	// Update player health bar rectangle based on health scale
 	CharacterHealth->SetRect({ CharacterHealth->FindSprite(L"HealthBar.txt")[0].Min.x
 		,CharacterHealth->FindSprite(L"HealthBar.txt")[0].Min.y + (CharacterScale * CharacterHealth->FindSprite(L"HealthBar.txt")[0].Size.y)
 			,CharacterHealth->FindSprite(L"HealthBar.txt")[0].Max.x
 		,CharacterHealth->FindSprite(L"HealthBar.txt")[0].Max.y });
 
+	// Set player health bar position
 	CharacterHealth->SetPosition({ 42,156 + (CharacterScale * CharacterHealth->FindSprite(L"HealthBar.txt")[0].Size.y) });
 	CharacterHealth->ScreenToNdc();
 	CharacterHealth->UpdateVertexList();
+
+	// Update boss health bar rectangle based on health scale
 
 	DynamoHealth->SetRect({ DynamoHealth->FindSprite(L"HealthBar.txt")[0].Min.x
 		,DynamoHealth->FindSprite(L"HealthBar.txt")[0].Min.y + (BossScale * DynamoHealth->FindSprite(L"HealthBar.txt")[0].Size.y)
 		,DynamoHealth->FindSprite(L"HealthBar.txt")[0].Max.x
 		,DynamoHealth->FindSprite(L"HealthBar.txt")[0].Max.y });
+	// Set boss health bar position
 	DynamoHealth->SetPosition({ 939,151 + (BossScale * DynamoHealth->FindSprite(L"HealthBar.txt")[0].Size.y) });
 	DynamoHealth->ScreenToNdc();
 	DynamoHealth->UpdateVertexList();
@@ -291,23 +302,26 @@ void InGame::SetData(ID3D11Device* Device, ID3D11DeviceContext* Context, RECT Cl
 
 void InGame::UpdateCamera()
 {
+	//Update Camera Use Character World Position
 	PlayerCam->SetData({ Character->WorldPos.x + 250  ,Character->WorldPos.y - 200 }, PlayerCam->CameraSize);
 	BackGroundCam->SetData(PlayerCam->Position, BackGroundCam->CameraSize);
 }
 
 void InGame::CheckMapCollision()
 {
-	Character->SetLeftWallState(Collision::RectToRect(Character->ObjectRect, Block->LeftWall));
-	Character->SetRightWallState(Collision::RectToRect(Character->ObjectRect, Block->RightWall));
-	Character->SetGroundState(Collision::RectToRect(Character->ObjectRect, Block->Ground));
 
-	Dynamo->SetLeftWallState(Collision::RectToRect(Dynamo->ObjectRect, Block->LeftWall));
-	Dynamo->SetRightWallState(Collision::RectToRect(Dynamo->ObjectRect, Block->RightWall));
-	Dynamo->SetGroundState(Collision::RectToRect(Dynamo->ObjectRect, Block->Ground));
+	Character->SetLeftWallState(Collision::RectToRect(Character->ObjectRect, Block->LeftWall));// Chracter Rect , Left Wall Rect
+	Character->SetRightWallState(Collision::RectToRect(Character->ObjectRect, Block->RightWall)); // Character Rect , Right Wall Rect
+	Character->SetGroundState(Collision::RectToRect(Character->ObjectRect, Block->Ground)); // Character Rect , Ground Rect
+
+	Dynamo->SetLeftWallState(Collision::RectToRect(Dynamo->ObjectRect, Block->LeftWall)); // Boss Rect, Left Wall Rect
+	Dynamo->SetRightWallState(Collision::RectToRect(Dynamo->ObjectRect, Block->RightWall)); // Boss Rect, Right Wall Rect
+	Dynamo->SetGroundState(Collision::RectToRect(Dynamo->ObjectRect, Block->Ground)); // Boss Rect , Ground Rect
 }
 
 void InGame::CameraPositionAdjust()
 {
+	//Adjust Camera Position to avoid Leaving Game Screen
 	if (PlayerCam->Max.x >= BackGround->ObjectRect.Max.x)
 	{
 		PlayerCam->Position.x = PlayerCam->Position.x - (PlayerCam->Max.x - BackGround->ObjectRect.Max.x);
@@ -329,24 +343,25 @@ void InGame::CameraPositionAdjust()
 
 void InGame::CheckBossBulletCollision()
 {
+	//Boss Bullet Collision Check
 	if (Dynamo->IsShootBullet())
 	{
 		Rect boss_bullet = Dynamo->GetBulletRect();
 		Rect player_rect = Character->GetObjectRect();
 		Rect boss_rect = Dynamo->GetObjectRect();
-		if (Collision::RectToRect(boss_bullet, Block->LeftWall))
+		if (Collision::RectToRect(boss_bullet, Block->LeftWall)) // bullet Rect , Left Wall Rect
 		{
 			Dynamo->SetBulletLeftHit(true);
 		}
-		else if (Collision::RectToRect(boss_bullet, Block->RightWall))
+		else if (Collision::RectToRect(boss_bullet, Block->RightWall)) // bullet rect , right rect
 		{
 			Dynamo->SetBulletRightHit(true);
 		}
-		if (Collision::RectToRect(boss_bullet, player_rect))
+		if (Collision::RectToRect(boss_bullet, player_rect)) // bullet rect , player rect
 		{
 			Character->GetDamage(Dynamo->GetBulletDamage());
 		}
-		if (Collision::RectToRect(boss_bullet, boss_rect))
+		if (Collision::RectToRect(boss_bullet, boss_rect)) // bullet rect , boss rect
 		{
 			Dynamo->RetrieveBullet();
 		}
@@ -355,9 +370,10 @@ void InGame::CheckBossBulletCollision()
 
 void InGame::CheckBossToPlayerCollision()
 {
+	//check collision boss , character
 	Rect player_rect = Character->GetObjectRect();
 	Rect boss_rect = Dynamo->GetObjectRect();
-	if (Collision::RectToRect(boss_rect, player_rect))
+	if (Collision::RectToRect(boss_rect, player_rect)) // boss rect , player rect
 	{
 		Character->GetDamage(Dynamo->GetBossDamage());
 	}
@@ -365,30 +381,31 @@ void InGame::CheckBossToPlayerCollision()
 
 void InGame::IntroFrame()
 {
+	// start intro frame
 	if (Intro == false)
 	{
 		return;
 	}
-	Character->Frame();
+	Character->Frame(); // play character intro frame
 	Character->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	Character->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
 	BackGround->CameraSet(PlayerCam->Position, BackGroundCam->CameraSize);
 	Block->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
-	if (Character->GetSpawnState())
+	if (Character->GetSpawnState()) // if player spawn
 	{
-		HandleReadyText();
+		HandleReadyText(); // render ready text
 	}
 
-	if (Character->GetIntroMoveEnd())
+	if (Character->GetIntroMoveEnd()) // if player move end
 	{
-		if (HandleWaringText())
+		if (HandleWaringText()) // render waring text
 		{
-			Dynamo->IntroFrame();
+			Dynamo->IntroFrame(); // boss intro frame
 			Dynamo->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 			Dynamo->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
 		}
 	}
-	if (Dynamo->GetIntroEnd())
+	if (Dynamo->GetIntroEnd()) // if intro end -> Game start
 	{
 		Intro = false;
 		Character->SetGameStart(true);
@@ -400,8 +417,9 @@ void InGame::IntroFrame()
 
 void InGame::OutroFrame()
 {
+	// play outro frame (player death or player win)
 	BGM->Stop();
-	if (Dynamo->GetBossDeath())
+	if (Dynamo->GetBossDeath()) // check player win or death
 	{
 		PlayerWinFrame();
 	}
@@ -421,9 +439,9 @@ void InGame::OutroFrame()
 
 void InGame::PlayerWinFrame()
 {
-
+	//if player win
 	Character->SetPlayerWin(true);
-	Dynamo->Frame();
+	Dynamo->Frame(); //play boss death event
 	Dynamo->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	if (Dynamo->GetIsEffectEnd())
 	{
@@ -438,7 +456,7 @@ void InGame::PlayerWinFrame()
 	{
 		Character->SetPlayerExit(true);
 	}
-	Character->Frame();
+	Character->Frame(); // play player outro frame
 	Character->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	if (Character->GetGameEnd())
 	{
@@ -449,6 +467,7 @@ void InGame::PlayerWinFrame()
 
 void InGame::PlayerLoseFrame()
 {
+	//if player lose event
 	Character->Frame();
 	Character->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	Character->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
@@ -461,13 +480,16 @@ void InGame::PlayerLoseFrame()
 
 void InGame::MainFrame()
 {
+	// Main Frame of Game
 	BGM->Play();
 	BGM->SetVolume(0.25f);
-	CheckMapCollision();
+	CheckMapCollision(); // Check Map object , (boss, player) collision
 	BackGround->CameraSet(PlayerCam->Position, BackGroundCam->CameraSize);
+
 	Character->Frame();
 	Character->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	Character->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
+
 	Dynamo->UpdateState(Character->GetPosition());
 	Dynamo->CameraSet(PlayerCam->Position, PlayerCam->CameraSize);
 	Dynamo->SetCameraData(PlayerCam->Position, PlayerCam->CameraSize);
@@ -477,12 +499,17 @@ void InGame::MainFrame()
 	HealthBarFrame();
 
 	UpdateCamera();
+
 	CameraPositionAdjust();
 
-	CheckBossBulletCollision();
-	Character->CheckBulletCollision(Dynamo);
-	Dynamo->CheckLaserCollision(Character);
+	CheckBossBulletCollision(); 
+
+	Character->CheckBulletCollision(Dynamo); // if character shoot bullet
+
+	Dynamo->CheckLaserCollision(Character); // if boss pattern is Laser
+
 	CheckBossToPlayerCollision();
+
 	if (Character->IsPlayerDeath() || Dynamo->GetBossDeath())
 	{
 		Outro = true;
@@ -493,6 +520,7 @@ void InGame::MainFrame()
 
 void InGame::HandleReadyText()
 {
+	// Ready Text Move
 	if (ReadyText_L == nullptr)
 	{
 		return;
@@ -528,6 +556,7 @@ void InGame::HandleReadyText()
 
 void InGame::HandleReadyClean()
 {
+	//if Ready Event End -> Release Ready Text
 	ReadyWait -= gSecondPerFrame;
 	if (ReadyWait < 0.0f)
 	{
@@ -549,6 +578,7 @@ void InGame::HandleReadyClean()
 
 bool InGame::HandleWaringText()
 {
+	//Update Warning Text, event
 	if (Warning == nullptr)
 	{
 		return true;
@@ -569,6 +599,7 @@ bool InGame::HandleWaringText()
 
 void InGame::UpdateRedFade()
 {
+	//Glitter event
 	RedFlashRender = true;
 	WaringSound->Play();
 	if (Flash == false)
@@ -606,6 +637,7 @@ void InGame::HandleWaringClean()
 
 void InGame::HandleGlitterAlpha()
 {
+	//boss explosion glitter event
 	GlitterTime += gSecondPerFrame;
 	if (GlitterAlpha < MAX_ALPHA && !FadeOut)
 	{

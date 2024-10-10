@@ -3,6 +3,9 @@
 #include "../Scene.h"
 #include "ReSUtility.h"
 
+// Boss Intro Scene class
+// Manage Intro Sound, Image
+
 class BossIntroScene : public Scene
 {
 	class GameSound* BGM;

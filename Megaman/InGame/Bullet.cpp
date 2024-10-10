@@ -4,6 +4,7 @@
 
 bool Bullet::Init()
 {
+    //Init Character Bullet Data
     AnimIndex = 0;
     Speed = 1000.f;
     NormalDamage = 5;
@@ -28,7 +29,7 @@ bool Bullet::Frame()
         //Release();
     }
     Position = WorldPos;
-    if (AnimIndex - 1 >= (CurrentAnimation.size() / 2.0f)) 
+    if (AnimIndex - 1 >= (CurrentAnimation.size() / 2.0f)) //Handle Move use Animation Index
     {
         MoveBullet();
     }
@@ -76,6 +77,7 @@ void Bullet::MoveBullet()
 
 void Bullet::AnimationInit()
 {
+    //Load Bullet Animation 
     for (int i = 0; i < Loader->fileList.size(); i++) 
     {
         int num = 0;
@@ -96,6 +98,7 @@ void Bullet::AnimationInit()
 
 void Bullet::Play()
 {
+    //Play Bullet Animation
     if (AnimIndex >= CurrentAnimation.size())
     {
         AnimIndex = 0;
@@ -161,7 +164,7 @@ void Bullet::SetInverse(bool inverse)
 
 bool Bullet::CheckBulletState()
 {
-    if (AnimIndex < (CurrentAnimation.size() / 2.0f) - 1)
+    if (AnimIndex < (CurrentAnimation.size() / 2.0f) - 1)//Timing when the actual bullet is created in the Sprite
     {
         return true;
     }
@@ -179,7 +182,7 @@ bool Bullet::CheckBulletTime()
 
 bool Bullet::ReadyToFire()
 {
-    if (AnimIndex < (CurrentAnimation.size() / 2.0f) - 1) 
+    if (AnimIndex < (CurrentAnimation.size() / 2.0f) - 1) //Timing when the actual bullet is created in the Sprite
     {
         return true;
     }

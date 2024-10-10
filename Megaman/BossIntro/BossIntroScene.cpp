@@ -8,9 +8,10 @@ bool BossIntroScene::Init()
 {
 	BGM = SoundMgr.Find(L"STAGE_START.mp3");
 	Nar = SoundMgr.Find(L"ROCK_X5_00855.wav");
-	FadeObject->Init();
+	FadeObject->Init(); //Init Glatter Image
 	FadeObject->SetPosition({ 500, 350 });
-	BossImageList[0]->SetImage(L"../_Texture/Dynamo1.png");
+
+	BossImageList[0]->SetImage(L"../_Texture/Dynamo1.png"); 
 	BossImageList[0]->SetRect({ 0,0,200,417 });
 
 	BossImageList[1]->SetImage(L"../_Texture/Dynamo2.png");
@@ -28,7 +29,6 @@ bool BossIntroScene::Init()
 
 bool BossIntroScene::Render()
 {
-	
 	BackGround->Render();
 	BossImageList[0]->Render();
 	BossImageList[1]->Render();
@@ -58,15 +58,12 @@ bool BossIntroScene::Release()
 
 bool BossIntroScene::Frame()
 {
-
 	PlayBGM();
 	MoveBossImage();
 	FlashScreen();
 	UpdateBossImage();
 	FlashScreenEnd();
 	HandleSceneChange();
-
-
 
 	return true;
 }
@@ -85,7 +82,7 @@ void BossIntroScene::SetData(ID3D11Device* Device, ID3D11DeviceContext* Context,
 		BossImageList[idx] = Img;
 		BossImageList[idx]->SetData(Device, Context, ClientRt);
 	}
-	FadeObject = new FadeInOut;
+	FadeObject = new FadeInOut; //Create Glatter Image
 	FadeObject->SetData(Device, Context, ClientRt);
 	BGM = new GameSound;
 	Nar = new GameSound;
@@ -111,16 +108,16 @@ void BossIntroScene::MoveBossImage()
 
 void BossIntroScene::FlashScreen()
 {
-	if (!Flash)
+	if (!Flash)  // Exit if Flash is not active
 	{
 		return;
 	}
 	FlashTimer -= gSecondPerFrame;
 	if (Wait == false)
 	{
-		FadeObject->FadeSet(0);
+		FadeObject->FadeSet(0);// Set fade-out effect (Fade value 0)
 		WaitTime -= gSecondPerFrame;
-		if (WaitTime < 0.0f)
+		if (WaitTime < 0.0f) // If wait time is up
 		{
 			Wait = true;
 			WaitTime = 0.2f;
@@ -128,9 +125,9 @@ void BossIntroScene::FlashScreen()
 	}
 	else
 	{
-		FadeObject->FadeSet(1);
+		FadeObject->FadeSet(1); // Set fade-in effect (Fade value 1)
 		WaitTime -= gSecondPerFrame;
-		BossImageList[1]->SetPosition({ 200,350 });
+		BossImageList[1]->SetPosition({ 200,350 }); // Set boss image position
 		if (WaitTime < 0.0f)
 		{
 			Wait = false;
@@ -140,7 +137,7 @@ void BossIntroScene::FlashScreen()
 	if (FlashTimer < 0.0f)
 	{
 		Flash = false;
-		FlashEnd = true;
+		FlashEnd = true; // end event
 	}
 }
 
@@ -154,7 +151,8 @@ void BossIntroScene::UpdateBossImage()
 
 void BossIntroScene::FlashScreenEnd()
 {
-	if (!FlashEnd)
+	//Start Flash End 
+	if (!FlashEnd) 
 	{
 		return;
 	}
@@ -167,13 +165,14 @@ void BossIntroScene::FlashScreenEnd()
 			Nar->Play();
 		}
 		SceneChange = true;
-		BossImageList[2]->SetPosition({ 500, 350 });
-		BossImageList[3]->SetPosition({ 500 ,500 });
+		BossImageList[2]->SetPosition({ 500, 350 }); // Boss Image Set Position
+		BossImageList[3]->SetPosition({ 500 ,500 }); // Boss Name Set Position
 	}
 }
 
 void BossIntroScene::HandleSceneChange()
 {
+	// Scene Change Event
 	if (!SceneChange)
 	{
 		return;
@@ -182,7 +181,7 @@ void BossIntroScene::HandleSceneChange()
 	SceneWaitTimer -= gSecondPerFrame;
 	if (SceneWaitTimer < 0.0f)
 	{
-		ChangeScene = true;
+		ChangeScene = true; // if ChageScene == true -> Change Next Scene
 	}
 	
 }

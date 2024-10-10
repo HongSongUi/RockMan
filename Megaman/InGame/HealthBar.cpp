@@ -4,6 +4,7 @@
 
 bool HealthBar::Init()
 {
+	//Init Health Bar UI
 	Text = new TextLoader;
 
 	Text->LoadDir(L"../_Animation/Hud/");

@@ -10,18 +10,18 @@ void HitState::Enter()
 	Tag = HIT;
 	Owner->SetAnimation(Owner->FindSprite(L"HurtC.txt"));
 	Owner->SetHitStartEvent();
-	Owner->SetPlaySound(L"ROCK_X5_00142.wav");
-	if (Owner->GetIsCharge())
+	Owner->SetPlaySound(L"ROCK_X5_00142.wav"); // Play Hit Sound
+	if (Owner->GetIsCharge()) // If Character is Charge
 	{
-		Owner->ResetChargeState();
+		Owner->ResetChargeState(); // Cancle Charge
 	}
 }
 
 void HitState::Update()
 {
-	if (Owner->IsPlayerDeath())
+	if (Owner->IsPlayerDeath()) // check Character Health
 	{
-		Owner->ChangeState(new DeathState);
+		Owner->ChangeState(new DeathState); 
 		return;
 	}
 	if (Owner->GetPlayerWin())

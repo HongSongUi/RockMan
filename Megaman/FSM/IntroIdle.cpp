@@ -3,8 +3,8 @@
 #include "IntroWalkState.h"
 void IntroIdle::Enter()
 {
-	Owner->SetAnimation(Owner->FindSprite(L"Intro.txt"));
-	Owner->PauseAnimation(0);
+	Owner->SetAnimation(Owner->FindSprite(L"Intro.txt")); // Set Player Animation
+	Owner->PauseAnimation(0); // Aniation Pause
 	IsGround = false;
 	IsPlaySound = false;
 }
@@ -13,11 +13,11 @@ void IntroIdle::Update()
 {
 	Owner->PlayAnimation();
 
-	if (!Owner->GetIsGround() && IsGround == false)
+	if (!Owner->GetIsGround() && IsGround == false) 
 	{
 		if (!IsPlaySound)
 		{
-			Owner->PlayEffectSound(L"ROCK_X5_00307.wav");
+			Owner->PlayEffectSound(L"ROCK_X5_00307.wav"); // Player Drop Sound
 			IsPlaySound = true;
 		}
 		Owner->Falling();
@@ -25,12 +25,11 @@ void IntroIdle::Update()
 	else
 	{
 		IsGround = true;
-		Owner->ReStartAnimation();
+		Owner->ReStartAnimation(); // Play Character Animation
 		Owner->SpawnPlayerEvent();
-		if (Owner->IsAnimationEnd())
+		if (Owner->IsAnimationEnd()) // if is Spawn End
 		{
-
-			Owner->ChangeState(new IntroWalkState);
+			Owner->ChangeState(new IntroWalkState); 
 			return;
 
 		}
@@ -39,5 +38,5 @@ void IntroIdle::Update()
 
 void IntroIdle::Exit()
 {
-	Owner->ResetAnimIndex();
+	Owner->ResetAnimIndex(); // Reset Animation Index to zero
 }

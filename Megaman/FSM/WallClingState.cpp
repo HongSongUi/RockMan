@@ -12,7 +12,7 @@ void WallClingState::Enter()
 	FallingSpeed = 15.f;
 	Tag = WALLCLING;
 	Owner->UpdateJumpSpeed();
-	Owner->SetAnimationEndLoop();
+	Owner->SetAnimationEndLoop(); // Set Animation Last Loop
 	Owner->SetJumpState(true);
 	Owner->SetPlaySound(L"ROCK_X5_00125.wav");
 }
@@ -33,7 +33,7 @@ void WallClingState::Update()
 		return;
 	}
 	Owner->PlayAnimation();
-	Owner->PlayWallEffect();
+	Owner->PlayWallEffect(); // Play Wall Effect
 	Owner->Falling(FallingSpeed);
 	if (GameInput.GetKey('X') == KEY_PUSH)
 	{
@@ -77,7 +77,7 @@ void WallClingState::Update()
 	}
 	if (Owner->GetIsGround())
 	{
-		Owner->SetPlaySound(L"ROCK_X5_00070.wav");
+		Owner->SetPlaySound(L"ROCK_X5_00070.wav"); // Play Landing Sound
 		Owner->ChangeState(new IdleState);
 		return;
 	}

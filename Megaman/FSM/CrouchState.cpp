@@ -12,20 +12,20 @@ void CrouchState::Enter()
 
 void CrouchState::Update()
 {
-	if (Owner->IsPlayerHit())
+	if (Owner->IsPlayerHit()) // if Player Hit
 	{
-		if (Owner->IsPlayerCanHit())
+		if (Owner->IsPlayerCanHit()) // Check Can Player Hit
 		{
 			Owner->ChangeState(new HitState);
 			return;
 		}
 	}
-	if (Owner->GetPlayerWin())
+	if (Owner->GetPlayerWin()) // if Player Win
 	{
 		Owner->ChangeState(new WinState);
 		return;
 	}
-	Owner->PlayAnimation();
+	Owner->PlayAnimation(); //Play Character Animation
 	if (GameInput.GetKey('X') == KEY_PUSH)
 	{
 		WaitTime = 0.f;
@@ -34,7 +34,7 @@ void CrouchState::Update()
 	}
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{
-		Owner->UpdateChargingState();
+		Owner->UpdateChargingState(); // Charge Start
 		if (Owner->GetIsCharge())
 		{
 			Owner->SetAnimation(Owner->FindSprite(L"Crouch.txt"));
@@ -44,13 +44,13 @@ void CrouchState::Update()
 	{
 		if (Owner->GetIsCharge())
 		{
-			if (Owner->GetChargeState() == CHARGEND)
+			if (Owner->GetChargeState() == CHARGEND) 
 			{
-				Owner->SetAnimation(Owner->FindSprite(L"CrouchCharge.txt"));
+				Owner->SetAnimation(Owner->FindSprite(L"CrouchCharge.txt")); // Crouch Charge Attack Animation
 			}
 			else
 			{
-				Owner->SetAnimation(Owner->FindSprite(L"CrouchShoot.txt"));
+				Owner->SetAnimation(Owner->FindSprite(L"CrouchShoot.txt")); // Crouch Attack Animation
 			}
 			Owner->SpawnBullet();
 			Owner->ResetChargeState();

@@ -9,6 +9,8 @@
 
 bool Boss::Init()
 {
+	// Init Boss Data
+
 	Speed = 300.f;
 	Loader = new TextLoader;
 	EffectInit();
@@ -41,6 +43,7 @@ void Boss::SoundInit()
 
 void Boss::SetBossState(Vector2 pos)
 {
+	// Set Boss Action use Random value
 	if (IsDeath == false)
 	{
 		SetPlayerPos(pos);
@@ -49,7 +52,7 @@ void Boss::SetBossState(Vector2 pos)
 			if (Wait == true)
 			{
 				RandomState = READY;
-				WaitTime -= gSecondPerFrame;
+				WaitTime -= gSecondPerFrame; // Standby for Next Action
 				if (WaitTime < 0.0f) {
 					Wait = false;
 					WaitTime = 1.0f;
@@ -60,7 +63,7 @@ void Boss::SetBossState(Vector2 pos)
 				std::random_device rd;
 				std::mt19937 gen(rd());
 				std::uniform_int_distribution<int> dis(0, 3);
-				RandomState = (BossState)dis(gen);
+				RandomState = (BossState)dis(gen); // Set Boss Action
 				Wait = true;
 				AnimIndex = 0;
 				StateReady();
@@ -75,18 +78,19 @@ void Boss::SetBossState(Vector2 pos)
 
 void Boss::IntroFrame()
 {
+	// Boss Intro Action
 	vPos = WorldPos;
 
 	if (Intro == true)
 	{
-		SetSprite(FindSprite(L"Intro.txt"));
+		SetSprite(FindSprite(L"Intro.txt")); // Set Boss Sprite
 		if (Ground == false && HitGround == false) {
 			JumpAccel = 0.5f;
 			vPos.y += 1.0f * gSecondPerFrame * 15.0f * FallingSpeed * JumpAccel;
 			AnimIndex = 0;
 			EffectSound->Play();
 		}
-		else if (Ground == true || HitGround == true)
+		else if (Ground == true || HitGround == true) // if Hit Ground == true
 		{
 			HitGround = true;
 			if (AnimIndex >= Play.size() - 1)
@@ -104,7 +108,8 @@ void Boss::IntroFrame()
 			}
 		}
 	}
-	if (AnimIndex >= Play.size() - 1) {
+	if (AnimIndex >= Play.size() - 1)
+	{
 		IntroFinish = true;
 	}
 	PlayAnimation();
@@ -123,13 +128,14 @@ float Boss::GetHealthScale()
 
 void Boss::EffectInit()
 {
+	// Boss Effect Init
 	for (int idx = 0; idx < 2; idx++)
 	{
 		Effect* Explosion = new Effect;
 		Explosion->SetData(D3D11Device, D3D11Context, ClientRect);
 		Explosion->SetTexture(L"../_Texture/Explosion.bmp", L"../_Texture/Explosionmask.bmp");
 		Explosion->Init();
-		ExplosionList.emplace_back(Explosion);
+		ExplosionList.emplace_back(Explosion); 
 	}
 }
 
@@ -141,6 +147,7 @@ void Boss::StartDeathEvent()
 
 void Boss::PlayExplosionEffect()
 {
+	// when Boss Death Play Explosion Effect
 	if (DeathEvent == false)
 	{
 		return;
@@ -179,8 +186,9 @@ void Boss::EffectRender()
 void Boss::StartExplosion()
 {
 	ExplosionSound->PlayEffect(0.25f);
-	Explosion = true;
-	for (int i = 0; i < 2; i++)
+	Explosion = true;// Set explosion flag to true
+
+	for (int i = 0; i < 2; i++) // Set position, sprite, and camera for each explosion effect
 	{
 		ExplosionList[i]->SetPosition(WorldPos);
 		ExplosionList[i]->SetSprite(ExplosionList[i]->FindSprite(L"Explosion.txt"));
@@ -193,7 +201,7 @@ void Boss::StartExplosion()
 
 void Boss::UpdateExplosionFrame(Effect* explosion)
 {
-	if (explosion->CheckAnimationEnd())
+	if (explosion->CheckAnimationEnd())// If explosion animation has ended, play sound, reset animation, and set a new random position
 	{
 		ExplosionSound->PlayEffect(0.25f);
 		explosion->ResetAnimation();
@@ -246,15 +254,15 @@ BossState Boss::GetBossState()
 
 void Boss::StateReady()
 {
-	if (RandomState == SWORD) {
-
+	//Adjusting the value to status
+	if (RandomState == SWORD)
+	{
 		Dir.x = PlayerPos.x - vPos.x;
 		Dir.y = PlayerPos.y - vPos.y;
 		Dir.Normalize();
 	}
 	else if (RandomState == REFLECT)
 	{
-
 		Inverse = !Inverse;
 	}
 	else if (RandomState == GIGA)
@@ -278,20 +286,20 @@ void Boss::UpdateExplosionAnimation()
 {
 	CurrnetExplosionTime += gSecondPerFrame;
 
-	UpdateExplosionFrame(ExplosionList[0]);
+	UpdateExplosionFrame(ExplosionList[0]);// Update the frame for the first explosion effect
 
 	ExplosionWait -= gSecondPerFrame;
-	if (ExplosionWait < 0.0f && TimeWait)
+	if (ExplosionWait < 0.0f && TimeWait) // Countdown for the next explosion, trigger the second explosion when ready
 	{
 		NextExplosion = true;
 		UpdateExplosionFrame(ExplosionList[1]);
 		TimeWait = false;
 
 
-		ExplosionWait = ExplosionTime - gSecondPerFrame;
+		ExplosionWait = ExplosionTime - gSecondPerFrame; // Reset the explosion wait time
 	}
 
-	if (NextExplosion && !TimeWait)
+	if (NextExplosion && !TimeWait)// If the second explosion is triggered and waiting, update its frame and reset it
 	{
 		UpdateExplosionFrame(ExplosionList[1]);
 		if (ExplosionList[1]->CheckAnimationEnd())
@@ -325,33 +333,41 @@ bool Boss::Frame()
 
 void Boss::OutroFrame()
 {
+	// Handle the boss's outro when it loses
 	vPos = WorldPos;
-	OutroWait -= gSecondPerFrame;
-	if (OutroWait > 0.5f) {
-		Play = FindSprite(L"LowHp.txt");
+	OutroWait -= gSecondPerFrame;// Decrease the wait timer for the outro
+	if (OutroWait > 0.5f) 
+	{
+		Play = FindSprite(L"LowHp.txt");// Play low health sprite
 	}
-	else if (OutroWait < 0.5f) {
-		if (Return == false) {
+	else if (OutroWait < 0.5f) 
+	{
+		if (Return == false) 
+		{
+			// Play voice effect and change sprite on return
 			Voice = SoundMgr.Find(L"ROCK_X5_00484.wav");
 			Voice->PlayEffect(0.25f);
 			Play = FindSprite(L"Return.txt");
-			Return = true;
+			Return = true; // Set return flag to true
 			EndLoop = true;
 		}
 	}
-	if (Return == true) {
-		if (AnimIndex > 10) {
+	if (Return == true) 
+	{
+		if (AnimIndex > 10) 
+		{
 			vPos.y += -1.0f * gSecondPerFrame * 15.0f * FallingSpeed * JumpAccel;
 			if (!IsPlayExitSound)
 			{
-				EffectSound = SoundMgr.Find(L"ROCK_X5_00307.wav");
+				EffectSound = SoundMgr.Find(L"ROCK_X5_00307.wav");	// Play exit sound effect when the boss starts falling
 				EffectSound->Play();
-				IsPlayExitSound = true;
+				IsPlayExitSound = true;// Check exit sound has been played
 			}
 		}
 
 	}
-	if (vPos.y < -100.0f) {
+	if (vPos.y < -100.0f)
+	{
 		Ending = true;
 	}
 	PlayAnimation();
@@ -384,6 +400,7 @@ bool Boss::Release()
 
 void Boss::Update()
 {
+	//Update Boss Action use Switch case
 	Falling();
 	switch (RandomState)
 	{
@@ -395,18 +412,18 @@ void Boss::Update()
 	case SWORD:
 		Damage = 15.f;
 		EffectSound = SoundMgr.Find(L"ROCK_X5_00472.wav");
-		SetSprite(FindSprite(L"Sword.txt"));
+		SetSprite(FindSprite(L"Sword.txt")); // Set Boss Sprite
 		if (AnimIndex == 0)
 		{
-			Voice = SoundMgr.Find(L"ROCK_X5_00475.wav");
+			Voice = SoundMgr.Find(L"ROCK_X5_00475.wav"); // Play Boss Sound
 			Voice->PlayEffect(0.025f);
 		}
 		if (AnimIndex == 8)
 		{
-			EffectSound->PlayEffect(0.025f);
+			EffectSound->PlayEffect(0.025f); // Play Boss Sword Effect Sound
 		}
 
-		if (!LeftWall && !RightWall)
+		if (!LeftWall && !RightWall) // Check Left/ Right Wall Collision
 		{
 			vPos.x = vPos.x + Dir.x * gSecondPerFrame * Speed;
 		}
@@ -425,17 +442,17 @@ void Boss::Update()
 			GigaAttack = true;
 			std::random_device rd;
 			std::mt19937 gen(rd());
-			std::uniform_int_distribution<int> dis(0, 3);
-			GigaPattern = dis(gen);
+			std::uniform_int_distribution<int> dis(0, 3);// Boss has 3 Giga Pattern 
+			GigaPattern = dis(gen); // Random Giga Pattern
 			if (GigaPattern == 0 || GigaPattern == 1)
 			{
-				LaserCount = 3;
+				LaserCount = 3; //Number of lasers to create
 			}
 			else
 			{
-				LaserCount = 8;
+				LaserCount = 8; //Number of lasers to create
 			}
-			SpawnLaser();
+			SpawnLaser(); //Create Laser
 		}
 		else if (GigaAttack == true)
 		{
@@ -453,6 +470,7 @@ void Boss::Update()
 	case BOOMERANG:
 		Damage = 10.f;
 		SetSprite(FindSprite(L"boomerang.txt"));
+		//Handle Event use Animation Index
 		if (AnimIndex == 0)
 		{
 			Voice = SoundMgr.Find(L"ROCK_X5_00453.wav");
@@ -466,7 +484,7 @@ void Boss::Update()
 		{
 			if (AnimIndex == 11)
 			{
-				LoopStop = true;
+				LoopStop = true; // Loop Last Frame of Animation 
 			}
 		}
 		else if (GetBoomerang == true)
@@ -484,7 +502,7 @@ void Boss::Update()
 			Voice->PlayEffect(0.025f);
 		}
 		Loop = true;
-		if (GuardTime < 0.0f)
+		if (GuardTime < 0.0f) // Check Guard Time
 		{
 			GuardTime = 2.0f;
 			Loop = false;
@@ -506,7 +524,7 @@ void Boss::Update()
 }
 void Boss::UpdateState(Vector2 pos)
 {
-	HealthScale = (BossHp - CurrBossHp) / 100;
+	HealthScale = (BossHp - CurrBossHp) / 100; // Calc Health Scale for Health Bar UI
 	CurrIdle = FindSprite(L"Idle.txt");
 	vPos = WorldPos;
 	if (CurrBossHp <= 0)
@@ -558,6 +576,7 @@ void Boss::Falling()
 
 void Boss::SetAnimation()
 {
+	//Load Boss Animation Use File Loader
 	for (int i = 0; i < Loader->fileList.size(); i++)
 	{
 		int num = 0;
@@ -578,8 +597,9 @@ void Boss::SetAnimation()
 
 void Boss::PlayAnimation()
 {
-	if (AnimIndex >= Play.size()) {
-		AnimIndex = 0;
+	if (AnimIndex >= Play.size()) 
+	{
+		AnimIndex = 0;// Loop back to the first frame
 	}
 	SetRect(Play[AnimIndex]);
 	static float Time = 0.0f;
@@ -598,8 +618,9 @@ void Boss::PlayAnimation()
 
 void Boss::CheckAnimationState()
 {
-	if (AnimIndex >= Play.size()) {
-
+	//Set Animation Index for Loop
+	if (AnimIndex >= Play.size()) 
+	{
 		if (Loop)
 		{
 			AnimIndex = 1;
@@ -608,7 +629,8 @@ void Boss::CheckAnimationState()
 		{
 			AnimIndex = Play.size();
 		}
-		else {
+		else
+		{
 			StateChange = true;
 
 		}
@@ -668,6 +690,7 @@ void Boss::SetGroundState(bool state)
 
 void Boss::CreateBossBullet()
 {
+	// Create Boss Attack
 	if (IsThrow == false)
 	{
 		Bullet = new BossBullet;
@@ -686,7 +709,7 @@ void Boss::CreateBossBullet()
 
 void Boss::SetBulletPos()
 {
-
+	//Init Boss Bullet Pos
 	if (Inverse)
 	{
 		Bullet->WorldPos.x = ObjectRect.Min.x - 15;
@@ -737,10 +760,11 @@ void Boss::SetBulletRightHit(bool state)
 
 void Boss::RetrieveBullet()
 {
+	// If Boss Retrieve Bullet
 	if (Bullet->IsTurn())
 	{
 		GetBoomerang = true;
-		Bullet->Release();
+		Bullet->Release(); // Release Bullet
 		delete Bullet;
 		Bullet = nullptr;
 		IsThrow = false;
@@ -749,8 +773,8 @@ void Boss::RetrieveBullet()
 
 void Boss::SpawnLaser()
 {
-	LaserSound->PlayEffect(0.75f);
-	for (int i = 0; i <= LaserCount; i++)
+	LaserSound->PlayEffect(0.75f); // Play Laser Effect
+	for (int i = 0; i <= LaserCount; i++) // Loop LaserCount
 	{
 		Laser* BossLaser = new Laser;
 		BossLaser->SetData(D3D11Device, D3D11Context, ClientRect);
@@ -836,6 +860,7 @@ void Boss::LaserRelease()
 
 void Boss::LaserEndEvent()
 {
+	//Laser Attack End Event
 	int count = 0;
 	for (int i = 0; i < LaserList.size(); i++)
 	{
@@ -858,13 +883,14 @@ void Boss::LaserEndEvent()
 
 void Boss::CheckLaserCollision(Object2D* object)
 {
+	// Laser Attack Collision
 	for (int i = LaserList.size() - 1; i >= 0; i--)
 	{
 		if (LaserList[i] != nullptr)
 		{
 			Rect laser_rect = LaserList[i]->GetObjectRect();
-			Rect obj_rect = object->GetObjectRect();
-			if (Collision::RectToRect(laser_rect, obj_rect))
+			Rect obj_rect = object->GetObjectRect(); // Get object2D Collision Rect
+			if (Collision::RectToRect(laser_rect, obj_rect)) // Check Laser , Object Collision
 			{
 				object->GetDamage(LaserList[i]->GetLaserDamage());
 			}

@@ -20,7 +20,7 @@ bool Laser::Frame()
     if (PlayEnd == false) {
         Play();
     }
-    if (Index >= Animaition.size() / 2.0f) 
+    if (Index >= Animaition.size() / 2.0f) // adjust Laser Collision On/Off Use Animation Index
     {
         Hit = false;
     }

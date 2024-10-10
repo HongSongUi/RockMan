@@ -8,18 +8,18 @@
 #include "Input.h"
 void ShootState::Enter()
 {
-	if (Owner->GetChargeState() == CHARGEND)
+	if (Owner->GetChargeState() == CHARGEND) // Charge Attack
 	{
 		Owner->SetAnimation(Owner->FindSprite(L"ChargeShoot.txt"));
 
 	}
-	else
+	else // Nomal Attack
 	{
 		Owner->SetAnimation(Owner->FindSprite(L"Shoot.txt"));
 	}
 	Tag = SHOOT;
-	Owner->SpawnBullet();
-	Owner->ResetChargeState();
+	Owner->SpawnBullet(); // Spawn Bullet
+	Owner->ResetChargeState(); // Charge End
 }
 
 void ShootState::Update()
@@ -42,7 +42,7 @@ void ShootState::Update()
 	{
 		Owner->SpawnBullet();
 		Owner->ResetChargeState();
-		Owner->SetAinmationIndex(0);
+		Owner->SetAinmationIndex(0); //Loop Animation 
 	}
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{

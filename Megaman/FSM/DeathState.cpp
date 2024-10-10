@@ -10,10 +10,10 @@ void DeathState::Update()
 {
 	Owner->PlayAnimation();
 	Owner->ResetAnimIndex();
-	WaitTimer += gSecondPerFrame;
+	WaitTimer += gSecondPerFrame; //Variables for smoothing the animation connection
 	if (WaitTimer >= 1.5f)
 	{
-		Owner->SetRenderState(false);
+		Owner->SetRenderState(false); // No Render
 	}
 }
 

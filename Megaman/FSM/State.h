@@ -1,4 +1,7 @@
 #pragma once
+// Character states
+
+//Use State Machine
 enum StateTag
 {
 	IDLE,
@@ -11,7 +14,7 @@ enum StateTag
 	AIRDASH,
 	HIT,
 };
-class State
+class State 
 {
 protected:
 	StateTag Tag;

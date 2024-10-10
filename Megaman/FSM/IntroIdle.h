@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+//Intro State
 class IntroIdle : public State
 {
 	bool IsGround;

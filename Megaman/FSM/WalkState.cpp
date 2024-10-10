@@ -28,21 +28,21 @@ void WalkState::Update()
 		Owner->ChangeState(new WinState);
 		return;
 	}
-	Owner->PlayAnimation();
+	Owner->PlayAnimation();// Play Character Animation
 	if (GameInput.GetKey(VK_LEFT) == KEY_HOLD)
 	{
 		Owner->SetInverse(true);
-		if (Owner->GetLeftWallState() == false)
+		if (Owner->GetLeftWallState() == false) //If No Collision Left Wall
 		{
-			Owner->PlayerMove(LEFT);
+			Owner->PlayerMove(LEFT); // Move Left
 		}
 	}
 	else if (GameInput.GetKey(VK_RIGHT) == KEY_HOLD)
 	{
 		Owner->SetInverse(false);
-		if (Owner->GetRightWallState() == false)
+		if (Owner->GetRightWallState() == false)//If No Collision Right Wall
 		{
-			Owner->PlayerMove(RIGHT);
+			Owner->PlayerMove(RIGHT); // Move Right
 		}
 	}
 	else if (GameInput.GetKey(VK_LEFT) == KEY_UP || GameInput.GetKey(VK_RIGHT) == KEY_UP)

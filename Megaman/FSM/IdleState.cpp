@@ -10,7 +10,7 @@
 #include "Player.h"
 void IdleState::Enter()
 {
-    Owner->SetCurrentState();
+    Owner->SetCurrentState(); // Check Character Health (50%)
     Tag = IDLE;
 }
 
@@ -30,7 +30,8 @@ void IdleState::Update()
         return;
     }
     Owner->PlayAnimation();
-    if (Owner->GetIsGround() == false)
+
+    if (Owner->GetIsGround() == false) 
     {
         Owner->Falling();
     }

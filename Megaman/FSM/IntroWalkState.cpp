@@ -18,7 +18,7 @@ void IntroWalkState::Update()
 	if (!Owner->GetIntroMoveEnd())
 	{
 		Owner->SetAnimation(Owner->FindSprite(L"Walk.txt"));
-		Owner->IntroWalk();
+		Owner->IntroWalk(); // Player Move auto
 	}
 	else
 	{

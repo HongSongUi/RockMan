@@ -13,7 +13,7 @@ void JumpState::Enter()
 	Tag = JUMP;
 	Owner->SetJumpState(true);
 	Owner->UpdateJumpSpeed();
-	if (Owner->GetPrevState() == WALLCLING)
+	if (Owner->GetPrevState() == WALLCLING) // Check Prev State
 	{
 		Owner->SetPlaySound(L"ROCK_X5_00206.wav");
 	}
@@ -38,12 +38,12 @@ void JumpState::Update()
 		Owner->ChangeState(new WinState);
 		return;
 	}
-	Owner->JumpAction();
+	Owner->JumpAction(); // Character Jump
 	Owner->PlayAnimation();
 	if (GameInput.GetKey(VK_LEFT) == KEY_HOLD)
 	{
 		Owner->SetInverse(true);
-		if (Owner->GetLeftWallState() == false)
+		if (Owner->GetLeftWallState() == false) // Check Collision Left Wall
 		{
 			Owner->PlayerMove(LEFT);
 		}
@@ -56,7 +56,7 @@ void JumpState::Update()
 	else if (GameInput.GetKey(VK_RIGHT) == KEY_HOLD)
 	{
 		Owner->SetInverse(false);
-		if (Owner->GetRightWallState() == false)
+		if (Owner->GetRightWallState() == false) // Chcek Collision Right Wall
 		{
 			Owner->PlayerMove(RIGHT);
 		}
@@ -75,8 +75,9 @@ void JumpState::Update()
 	}
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{
-		Owner->UpdateChargingState();
-		if (Owner->GetIsCharge()) {
+		Owner->UpdateChargingState(); //Charge Start
+		if (Owner->GetIsCharge()) 
+		{
 			Owner->SetAnimation(Owner->FindSprite(L"Jump.txt"));
 		}
 	}
@@ -103,7 +104,7 @@ void JumpState::Update()
 		Owner->ChangeState(new AirDashState());
 		return;
 	}
-	if (Owner->CheckJumpAccel())
+	if (Owner->CheckJumpAccel())// Check Character Ground State(bool)
 	{
 		Owner->ChangeState(new IdleState());
 		return;

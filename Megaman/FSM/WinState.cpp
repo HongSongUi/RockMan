@@ -12,7 +12,7 @@ void WinState::Update()
         Owner->PlayAnimation();
     }
 
-    if (!Owner->GetPlayerExit())
+    if (!Owner->GetPlayerExit()) // Check Player Out Trigger
     {
         if (Owner->GetIsGround() == false)
         {

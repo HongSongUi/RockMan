@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+
 class IntroWalkState : public State
 {
 public:

@@ -14,44 +14,44 @@ void AirDashState::Enter()
 
 void AirDashState::Update()
 {
-	if (Owner->IsPlayerHit())
+	if (Owner->IsPlayerHit()) // If Player Hit
 	{
-		if (Owner->IsPlayerCanHit())
+		if (Owner->IsPlayerCanHit()) // Check Can Player Hit 
 		{
 			Owner->ChangeState(new HitState);
 			return;
 		}
 	}
-	if (Owner->GetPlayerWin())
+	if (Owner->GetPlayerWin()) // If Player Win
 	{
-		Owner->ChangeState(new WinState);
+		Owner->ChangeState(new WinState); // Change Win State
 		return;
 	}
 	Owner->PlayAnimation();
 	Owner->PlayDashEffect();
 	DashTime -= gSecondPerFrame;
-	if (!Owner->GetLeftWallState() && !Owner->GetRightWallState())
+	if (!Owner->GetLeftWallState() && !Owner->GetRightWallState()) // Check Left/Right Wall Collision
 	{
-		Owner->PlayerDash(500.f);
+		Owner->PlayerDash(500.f); // Dash (Speed)
 	}
 
-	if (DashTime < 0.f)
+	if (DashTime < 0.f) // Dash End
 	{
 		Owner->ChangeState(new JumpState);
 		return;
 	}
 
-	if (GameInput.GetKey('X') == KEY_PUSH)
+	if (GameInput.GetKey('X') == KEY_PUSH) 
 	{
 		WaitTime = 0.f;
-		Owner->ResetChargeState();
+		Owner->ResetChargeState(); // Charge Time = 0
 		Owner->SetAnimation(Owner->FindSprite(L"ShootDash.txt"));
 		Owner->SpawnBullet();
 	}
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{
-		Owner->UpdateChargingState();
-		if (Owner->GetIsCharge())
+		Owner->UpdateChargingState(); // Charge Start
+		if (Owner->GetIsCharge()) 
 		{
 			Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
 		}

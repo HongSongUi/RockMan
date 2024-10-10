@@ -10,14 +10,14 @@ void DashState::Enter()
 	Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
 	Tag = DASH;
 	DashTime = 0.55f;
-	Owner->SetPlaySound(L"ROCK_X5_00126.wav");
+	Owner->SetPlaySound(L"ROCK_X5_00126.wav"); // Play Dash Effect Sound
 }
 
 void DashState::Update()
 {
-	if (Owner->IsPlayerHit())
+	if (Owner->IsPlayerHit()) // Player Hit
 	{
-		if (Owner->IsPlayerCanHit())
+		if (Owner->IsPlayerCanHit()) // if Can Player Hit
 		{
 			Owner->ChangeState(new HitState);
 			return;
@@ -28,20 +28,20 @@ void DashState::Update()
 		Owner->ChangeState(new WinState);
 		return;
 	}
-	Owner->PlayAnimation();
-	Owner->PlayDashEffect();
-	if (!Owner->GetLeftWallState() && !Owner->GetRightWallState())
+	Owner->PlayAnimation(); // Play Character Animation
+	Owner->PlayDashEffect(); // Play Dash Effect
+	if (!Owner->GetLeftWallState() && !Owner->GetRightWallState()) // Check Left/Right Wall Collision
 	{
 		Owner->PlayerDash(500.f);
 	}
 	DashTime -= gSecondPerFrame;
-	if (DashTime < 0.f)
+	if (DashTime < 0.f) // if Dash End
 	{
 		Owner->ChangeState(new IdleState);
 		return;
 	}
 
-	if (GameInput.GetKey('X') == KEY_PUSH)
+	if (GameInput.GetKey('X') == KEY_PUSH) // Dash Attack
 	{
 		WaitTime = 0.f;
 		Owner->ResetChargeState();
@@ -50,14 +50,14 @@ void DashState::Update()
 	}
 	else if (GameInput.GetKey('X') == KEY_HOLD)
 	{
-		Owner->UpdateChargingState();
-		if (Owner->GetIsCharge()) {
+		Owner->UpdateChargingState();//Start Charge
+		if (Owner->GetIsCharge()) 
+		{
 			Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
 		}
 	}
 	else if (GameInput.GetKey('X') == KEY_FREE)
 	{
-
 		if (Owner->GetIsCharge())
 		{
 			Owner->SetAnimation(Owner->FindSprite(L"ShootDash.txt"));
@@ -67,7 +67,7 @@ void DashState::Update()
 		else
 		{
 			WaitTime += gSecondPerFrame;
-			if (WaitTime > 0.8f)
+			if (WaitTime > 0.8f) //Variables for smoothing the animation connection
 			{
 				Owner->SetAnimation(Owner->FindSprite(L"Dash.txt"));
 			}

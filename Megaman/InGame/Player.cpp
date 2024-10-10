@@ -12,9 +12,9 @@
 #include <fstream>
 void Player::Falling(float FallingSpeed)
 {
+	//if Character Jump 
 	JumpForce = 0.5f;
 	Position.y += 1.0f * gSecondPerFrame * 9.8 * FallingSpeed * JumpForce;
-
 }
 
 bool Player::GetIsGround()
@@ -79,6 +79,7 @@ std::vector<Rect> Player::FindSprite(std::wstring name)
 
 bool Player::Init()
 {
+	//Init Player Data
 	IsGameStart = false;
 	Inverse = false;
 	HitCoolTime = 0.75f;
@@ -113,6 +114,7 @@ bool Player::Init()
 }
 void Player::InitSound()
 {
+	//Init Player Sound
 	ShootSound = new GameSound;
 	ChargingSound = new GameSound;
 	PlayerSound = new GameSound;
@@ -133,7 +135,7 @@ void Player::InitSound()
 
 bool Player::IntroFrame()
 {
-	
+	//character intro frame
 	PlayAnimation();
 	SetPosition(Position);
 	UpdateVertexList();
@@ -142,11 +144,12 @@ bool Player::IntroFrame()
 
 bool Player::Frame()
 {
+	// character main frame
 	HealthScale = (MaxHealth - CurHealth) / 100;
 	CoolTime -= gSecondPerFrame;
 
 	Position = WorldPos;
-	CurrentState->Update();
+	CurrentState->Update();// fsm
 	
 	SetPosition(Position);
 	
@@ -159,6 +162,7 @@ bool Player::Frame()
 
 void Player::IntroFalling()
 {
+	// play character intro landing
 	MoveEnd = false;
 	if (Intro == true)
 	{
@@ -168,7 +172,7 @@ void Player::IntroFalling()
 	if (IsGround == false && HitGround == false) {
 		EffectSound->Play();
 		JumpForce = 0.5f;
-		Position.y += 1.0f * gSecondPerFrame * 15.0f * Y_Speed * JumpForce;
+		Position.y += 1.0f * gSecondPerFrame * 15.0f * Y_Speed * JumpForce; // falling to ground
 		AnimationIndex = 0;
 	}
 	else if (IsGround == true || HitGround == true)
@@ -177,11 +181,11 @@ void Player::IntroFalling()
 		if (AnimationIndex >= CurrentAnimation.size() - 5)
 		{
 			if (Intro == true) {
-				EffectSound = SoundMgr.Find(L"ROCK_X5_00314.wav");
+				EffectSound = SoundMgr.Find(L"ROCK_X5_00314.wav"); // play character spawn sound
 				EffectSound->Play();
 			}
 		}
-		if (AnimationIndex >= CurrentAnimation.size() - 1)
+		if (AnimationIndex >= CurrentAnimation.size() - 1) // handle character spawn end
 		{
 			if (Intro == true) 
 			{
@@ -278,6 +282,7 @@ void Player::ReStartAnimation()
 
 bool Player::Render()
 {
+	//player render
 	if (IsRender == false)
 	{
 		return true;
@@ -286,9 +291,10 @@ bool Player::Render()
 	BulletRender();
 	if (IsCharge == true)
 	{
-		ChargeEffect->MaskRender();
+		ChargeEffect->MaskRender(); // if charge state play charge effect
 	}
-	if (CurrentTag == DASH || CurrentTag == AIRDASH)
+	//play effect
+	if (CurrentTag == DASH || CurrentTag == AIRDASH) // play dash , air dash effect
 	{
 		if (CurrentTag == DASH)
 		{
@@ -316,7 +322,9 @@ bool Player::Render()
 
 void Player::SetCurrentState()
 {
-	if (CurHealth <= MaxHealth / 2.0f) {
+	//check character health
+	if (CurHealth <= MaxHealth / 2.0f) 
+	{
 		std::vector<Rect> find_sprite = FindSprite(L"IdleLowHp.txt");
 		SetAnimation(find_sprite);
 	}
@@ -344,9 +352,7 @@ void Player::ChangeState(State* NewState)
 
 void Player::PlayAnimation()
 {
-	/*if (_State != _PreState) {
-		AnimationIndex = 0;
-	}*/
+
 	if (AnimationIndex >= CurrentAnimation.size())
 	{
 		AnimationIndex = 0;
@@ -411,7 +417,6 @@ bool Player::CheckJumpAccel()
 		{
 			AnimEndLoop = false;
 			SetPlaySound(L"ROCK_X5_00070.wav");
-			//Landing->PlayEffect(0.65f);
 			return true;
 		}
 		return false;
@@ -494,7 +499,7 @@ void Player::PlayDashEffect()
 {
 	DashDustEffect->SetInverse(!Inverse);
 	DashBoostEffect->SetInverse(!Inverse);
-	if (Inverse)
+	if (Inverse) // Set dash effect position use character inverse state
 	{
 		DashDustEffect->SetPosition({ ObjectRect.Max.x + 55, ObjectRect.Max.y });
 		DashBoostEffect->SetPosition({ ObjectRect.Max.x + 55, ObjectRect.Max.y });
@@ -521,6 +526,7 @@ void Player::DashEndEvent()
 
 void Player::PlayWallEffect()
 {
+	// set wall dust effect position, inverse state
 	if (LeftWall) 
 	{
 		WallDustEffect->SetInverse(false);
@@ -539,6 +545,7 @@ void Player::PlayWallEffect()
 
 void Player::PlayBulletHitEffect()
 {
+	//player bullet hit effect
 	if (IsPlayBulletHitEffect)
 	{
 		BulletHitEffect->Frame();
@@ -626,6 +633,7 @@ void Player::SetAnimationEndLoop()
 
 void Player::MoveUp()
 {
+	//use outro (player win)
 	if (!IsPlayExitSound)
 	{
 		ExitSound->Play();
@@ -649,7 +657,7 @@ void Player::SetVitoryEvent()
 	{
 		if (PlayVictory == true) 
 		{
-			VictorySound->PlayEffect(0.5f);
+			VictorySound->PlayEffect(0.5f);// play victory sound
 			PlayVictory = false;
 		}
 		StopLoop = true;
@@ -689,11 +697,11 @@ void Player::SetHitStartEvent()
 
 bool Player::CheckBulletCollision(Object2D* object)
 {
-	for (auto iter = BulletList.begin(); iter != BulletList.end(); )
+	for (auto iter = BulletList.begin(); iter != BulletList.end(); ) // loop bullet use bullet list
 	{
 		Bullet* bul = *iter;
 		Rect obj_rect = object->GetObjectRect();
-		if (Collision::RectToRect(bul->ObjectRect, obj_rect))
+		if (Collision::RectToRect(bul->ObjectRect, obj_rect)) // bullet rect / object rect collision check
 		{
 			SpawnBulletHitEffect(bul, object);
 			bul->Release();
@@ -757,6 +765,7 @@ bool Player::IsPlayerCanHit()
 
 void Player::CheckHitCoolTime()
 {
+	//if character hit, don't hit during hit cool time
 	if (CanHit == false)
 	{
 		HitCoolTime -= gSecondPerFrame;
@@ -831,6 +840,7 @@ bool Player::GetRightWallState()
 
 void Player::InitBullet()
 {
+	// Spawn character bullet
 	PlayerBullet = new Bullet;
 	PlayerBullet->SetData(D3D11Device, D3D11Context, ClientRect);
 	PlayerBullet->Init();
@@ -858,6 +868,7 @@ void Player::InitBullet()
 
 void Player::SetBulletSpawn()
 {
+	//Set bullet Inverse
 	if (CurrentTag == WALLCLING)
 	{
 		PlayerBullet->SetInverse(Inverse);
@@ -870,6 +881,7 @@ void Player::SetBulletSpawn()
 
 void Player::SetBulletSpawnPoint(Bullet* bullet)
 {
+	// Handle Bullet Spawn point
 	if (Inverse) 
 	{
 		if (CurrentTag == WALLCLING) 

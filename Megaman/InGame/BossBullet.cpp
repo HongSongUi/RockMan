@@ -4,6 +4,7 @@
 #include <fstream>
 bool BossBullet::Init()
 {
+	// Init Bullet Data
 	Speed = 500.0f;
 	Damage = 15.f;
 	Loader = new TextLoader;
@@ -21,6 +22,7 @@ bool BossBullet::Frame()
 	Vector2 Pos = WorldPos;
 
 	Pos.x += Dir * gSecondPerFrame * Speed;
+	//Return Bullet To Boss
 	if (LeftWall == true) 
 	{
 		Dir = 1;
