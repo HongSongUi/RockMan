@@ -9,6 +9,7 @@ bool FadeInOut::Init()
 
 void FadeInOut::FadeSet(float Alpha)
 {
+	//Handle FadeIn, FadeOut use Alpha value
 	VertexList[0].Color = { 1.0f,1.0f,1.0f, Alpha };
 	VertexList[1].Color = { 1.0f,1.0f,1.0f,Alpha };
 	VertexList[2].Color = { 1.0f,1.0f,1.0f,Alpha };

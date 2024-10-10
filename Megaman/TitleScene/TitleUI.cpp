@@ -12,7 +12,7 @@ bool TitleUI::Init()
 	SetMask(L"../_Texture/TitleUImask.bmp");
 	Load(L"../_shader/DefaultMaskShader.txt", L"../_Texture/TitleUI.bmp");
 
-	SetRect(FindSprite(L"TitleUi01.txt")[0]);
+	SetRect(FindSprite(L"TitleUi01.txt")[0]); // set image range
 	SelectSound = SoundMgr.Find(L"ROCK_X5_00169.wav");
 	ChooseSound = SoundMgr.Find(L"ROCK_X5_00546.wav");
 	CreateVertex();

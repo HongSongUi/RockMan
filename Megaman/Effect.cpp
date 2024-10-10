@@ -3,6 +3,7 @@
 #include <fstream>
 bool Effect::Init()
 {
+	//init effect data
 	Text = new TextLoader;
 	Text->LoadDir(L"../_Animation/Effect/");
 	TextInit();
@@ -59,6 +60,7 @@ void Effect::TextInit()
 
 void Effect::Play()
 {
+	//play effect animation
 	if (Sprite.size() == 0) 
 	{
 		return;

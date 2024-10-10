@@ -41,6 +41,7 @@ bool StageScene::Release()
 
 bool StageScene::Frame()
 {
+	// Set MugList choose 
 	BGM->Play();
 	for (int i = 0; i < MugList.size(); i++) 
 	{

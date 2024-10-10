@@ -14,6 +14,7 @@ bool Sample::Init()
     IntroScene = new BossIntroScene;
     InGameScene = new InGame;
 
+    //Manage Scenes use List
     TitleStage->SetData(GameCore::GetDevice(), GameCore::GetContext(), GameCore::GetClientRect());
     SceneList.emplace_back(TitleStage);
     SelectStage->SetData(GameCore::GetDevice(), GameCore::GetContext(), GameCore::GetClientRect());
