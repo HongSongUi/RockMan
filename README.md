@@ -45,7 +45,9 @@
 
 
 ## Screenshot
-<img src="https://github.com/user-attachments/assets/5a00f104-b546-4c04-8af7-8c59e939db61" width="500" height="300"/>
-<img src="https://github.com/user-attachments/assets/aba6effc-d574-4dd9-8f3b-01750b60b610" width="500" height="300"/>
-<img src="https://github.com/user-attachments/assets/8c84129d-ea3a-4a37-9fd7-98affc551817" width="500" height="300"/>
-<img src="https://github.com/user-attachments/assets/98172b1e-4c9f-4cbd-b138-48c4943297b6" width="500" height="300"/>
+|  |   |
+|---|---|
+|메인 화면|보스 선택|
+|<img width="450" alt="image" src="https://github.com/user-attachments/assets/5a00f104-b546-4c04-8af7-8c59e939db61">|<img width="450" alt="image" src="https://github.com/user-attachments/assets/aba6effc-d574-4dd9-8f3b-01750b60b610">|
+|보스 인트로|전투|
+|<img width="450" alt="image" src="https://github.com/user-attachments/assets/8c84129d-ea3a-4a37-9fd7-98affc551817">|<img width="450" alt="image" src="https://github.com/user-attachments/assets/98172b1e-4c9f-4cbd-b138-48c4943297b6">|
