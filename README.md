@@ -17,4 +17,4 @@
 
 
 ## 상세 내용
-[노션](https://pickled-saver-987.notion.site/RockMan-2e823b8d49dc80fcb8bfcbd0c245c0a7)
+[노션](https://pickled-saver-987.notion.site/RockMan-2fd23b8d49dc80b4aa62de498eea18f1?pvs=143)
